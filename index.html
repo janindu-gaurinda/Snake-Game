@@ -3,21 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Eat Food Game</title>
+    <title>Responsive Snake Game</title>
     <style>
         body {
             margin: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: #333;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        #gameContainer {
+            position: relative;
         }
 
         #gameCanvas {
-            position: relative;
             border: 5px solid #fff;
             background-color: #000;
+            display: block;
         }
 
         #hud {
@@ -26,7 +33,6 @@
             left: 0;
             width: 100%;
             color: #fff;
-            font-family: Arial, sans-serif;
             font-size: 18px;
             display: flex;
             justify-content: space-between;
@@ -34,26 +40,60 @@
             box-sizing: border-box;
         }
 
-        #lives {
-            float: left;
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
         }
 
-        #score {
-            float: right;
+        .controls div {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            width: 60px;
+            height: 60px;
+            margin: 5px;
+            font-size: 20px;
+            background-color: #555;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        button:active {
+            background-color: #777;
         }
     </style>
 </head>
 <body>
-    <div id="gameCanvas">
+    <div id="gameContainer">
         <div id="hud">
             <div id="lives">Lives: 3</div>
             <div id="score">Score: 0</div>
         </div>
-        <canvas width="400" height="400"></canvas>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+    </div>
+
+    <div class="controls">
+        <div>
+            <button id="upBtn">↑</button>
+        </div>
+        <div>
+            <button id="leftBtn">←</button>
+            <button id="spaceBtn">⏯</button>
+            <button id="rightBtn">→</button>
+        </div>
+        <div>
+            <button id="downBtn">↓</button>
+        </div>
     </div>
 
     <script>
-        const canvas = document.querySelector('#gameCanvas canvas');
+        const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
 
         const snakeSize = 8;
@@ -178,7 +218,43 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
 
+        // Mobile control buttons
+        document.getElementById('upBtn').addEventListener('click', () => {
+            if (dy === 0) {
+                dx = 0;
+                dy = -snakeSize;
+            }
+        });
+
+        document.getElementById('downBtn').addEventListener('click', () => {
+            if (dy === 0) {
+                dx = 0;
+                dy = snakeSize;
+            }
+        });
+
+        document.getElementById('leftBtn').addEventListener('click', () => {
+            if (dx === 0) {
+                dx = -snakeSize;
+                dy = 0;
+            }
+        });
+
+        document.getElementById('rightBtn').addEventListener('click', () => {
+            if (dx === 0) {
+                dx = snakeSize;
+                dy = 0;
+            }
+        });
+
+        document.getElementById('spaceBtn').addEventListener('click', () => {
+            togglePause();
+        });
+
+        // Keyboard controls for desktop
         document.addEventListener('keydown', changeDirection);
+        
+        // Start the game loop
         gameInterval = setInterval(gameLoop, 100);
     </script>
 </body>
