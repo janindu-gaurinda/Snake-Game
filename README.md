@@ -26,6 +26,7 @@ cd SnakeGame
 Open the index.html file in your web browser to start playing.
 Customization
 ![image](https://github.com/user-attachments/assets/2db87baf-4d22-4070-af00-04c66fb2ab44)
+![Screenshot (7)](https://github.com/user-attachments/assets/628d5017-60bf-4c20-847a-b805936c39b6)
 
 Game Settings: Modify the JavaScript file to adjust game speed, colors, and grid size.
 Styling: Customize the styles in the CSS file to change the game's appearance.
